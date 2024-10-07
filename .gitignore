@@ -72,3 +72,14 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Rust
+.bin/
+target/
+
+# Generated UNIFFI
+generated/
+
+# More Xcode Stuff
+*.xcuserstate
+**/xcuserdata/*

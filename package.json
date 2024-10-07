@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "fast-text-encoding": "^1.0.6",
     "react": "18.3.1",
     "react-native": "0.76.0-rc.3"
   },

@@ -7,4 +7,10 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:../shared/shared.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../shared_types/generated/swift/SharedTypes">
+   </FileRef>
 </Workspace>

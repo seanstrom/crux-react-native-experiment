@@ -11,10 +11,33 @@
 		0678CDECC2B10E96B40439FE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		0C80B921A6F3F58F76C31292 /* libPods-TestApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-TestApp.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		2BC2CB1E2CB2DFB80097083E /* shared.udl in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2CB1D2CB2DFB80097083E /* shared.udl */; };
+		2BC2CB202CB2E18A0097083E /* libshared_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC2CB1F2CB2E18A0097083E /* libshared_static.a */; };
+		2BC2CB222CB2E1AC0097083E /* SharedTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC2CB212CB2E1AC0097083E /* SharedTypes */; };
+		2BC2CB292CB2FE540097083E /* JSIRuntimeHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2CB282CB2FE540097083E /* JSIRuntimeHelper.mm */; };
+		2BC2CB2E2CB309B20097083E /* EventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2CB2D2CB309B20097083E /* EventProcessor.swift */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		7699B88040F8A987B510C191 /* libPods-TestApp-TestAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-TestApp-TestAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		2BC2CB1C2CB2DEBB0097083E /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.udl";
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(PROJECT_DIR)/generated/$(INPUT_FILE_BASE).swift",
+				"$(PROJECT_DIR)/generated/$(INPUT_FILE_BASE)FFI.h",
+			);
+			runOncePerArchitecture = 0;
+			script = "# Type a s#!/bin/bash\nset -e\n\n# Skip during indexing phase in XCode 13+\nif [ \"$ACTION\" == \"indexbuild\" ]; then\n   echo \"Not building *.udl files during indexing.\"\n   exit 0\nfi\n\n# Skip for preview builds\nif [ \"$ENABLE_PREVIEWS\" = \"YES\" ]; then\n   echo \"Not building *.udl files during preview builds.\"\n   exit 0\nfi\n\ncd \"${INPUT_FILE_DIR}/..\"\n\"/Users/seanstrom/Code/org-seanstrom/experimental/TestApp/TestApp/target/debug/uniffi-bindgen\" generate \"src/${INPUT_FILE_NAME}\" --language swift --out-dir \"${PROJECT_DIR}/generated\"\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
@@ -35,6 +58,12 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TestApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TestApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-TestApp-TestAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TestApp-TestAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BC2CB1D2CB2DFB80097083E /* shared.udl */ = {isa = PBXFileReference; lastKnownFileType = text; name = shared.udl; path = ../shared/src/shared.udl; sourceTree = "<group>"; };
+		2BC2CB1F2CB2E18A0097083E /* libshared_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libshared_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BC2CB272CB2FC740097083E /* JSIRuntimeHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JSIRuntimeHelper.h; path = TestApp/JSIRuntimeHelper.h; sourceTree = "<group>"; };
+		2BC2CB282CB2FE540097083E /* JSIRuntimeHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = JSIRuntimeHelper.mm; path = TestApp/JSIRuntimeHelper.mm; sourceTree = "<group>"; };
+		2BC2CB2C2CB301120097083E /* AppBridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppBridgeHeader.h; sourceTree = "<group>"; };
+		2BC2CB2D2CB309B20097083E /* EventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventProcessor.swift; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-TestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp.debug.xcconfig"; path = "Target Support Files/Pods-TestApp/Pods-TestApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-TestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp.release.xcconfig"; path = "Target Support Files/Pods-TestApp/Pods-TestApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-TestApp-TestAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp-TestAppTests.debug.xcconfig"; path = "Target Support Files/Pods-TestApp-TestAppTests/Pods-TestApp-TestAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -58,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BC2CB202CB2E18A0097083E /* libshared_static.a in Frameworks */,
+				2BC2CB222CB2E1AC0097083E /* SharedTypes in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-TestApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,11 +116,15 @@
 		13B07FAE1A68108700A75B9A /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				2BC2CB2C2CB301120097083E /* AppBridgeHeader.h */,
+				2BC2CB282CB2FE540097083E /* JSIRuntimeHelper.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				2BC2CB272CB2FC740097083E /* JSIRuntimeHelper.h */,
+				2BC2CB2D2CB309B20097083E /* EventProcessor.swift */,
 			);
 			name = TestApp;
 			sourceTree = "<group>";
@@ -97,6 +132,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2BC2CB1F2CB2E18A0097083E /* libshared_static.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-TestApp.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-TestApp-TestAppTests.a */,
@@ -114,6 +150,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				2BC2CB1D2CB2DFB80097083E /* shared.udl */,
 				13B07FAE1A68108700A75B9A /* TestApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TestAppTests */,
@@ -183,10 +220,14 @@
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
+				2BC2CB1C2CB2DEBB0097083E /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
 			name = TestApp;
+			packageProductDependencies = (
+				2BC2CB212CB2E1AC0097083E /* SharedTypes */,
+			);
 			productName = TestApp;
 			productReference = 13B07F961A680F5B00A75B9A /* TestApp.app */;
 			productType = "com.apple.product-type.application";
@@ -391,7 +432,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BC2CB1E2CB2DFB80097083E /* shared.udl in Sources */,
+				2BC2CB2E2CB309B20097083E /* EventProcessor.swift in Sources */,
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				2BC2CB292CB2FE540097083E /* JSIRuntimeHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +523,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TestApp;
+				SWIFT_OBJC_BRIDGING_HEADER = AppBridgeHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -506,6 +551,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TestApp;
+				SWIFT_OBJC_BRIDGING_HEADER = AppBridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -580,10 +626,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -652,10 +695,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -694,6 +734,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2BC2CB212CB2E1AC0097083E /* SharedTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SharedTypes;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
